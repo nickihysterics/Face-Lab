@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440">
+<title>Синтетическая сцена: две условные фигуры и заданные рамки</title>
+<rect width="960" height="440" rx="16" fill="#edf0e9"/>
+<path d="M0 340H960M0 390H960M80 0V440M480 0V440M880 0V440" stroke="#d6ddd1"/>
+<circle cx="270" cy="172" r="150" fill="#e0e7d7"/>
+<circle cx="700" cy="172" r="150" fill="#e3e4e0"/>
+<path d="M115 440Q125 285 270 285Q415 285 425 440" fill="#4e695c"/>
+<ellipse cx="270" cy="196" rx="71" ry="94" fill="#dec7a9"/>
+<path d="M200 190Q170 84 273 94Q362 97 340 185L307 139L225 161Z" fill="#354b40"/>
+<path d="M239 210h12m37 0h12M254 247Q270 257 287 245" stroke="#4e5148" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M545 440Q555 285 700 285Q845 285 855 440" fill="#acb2a5"/>
+<ellipse cx="700" cy="196" rx="71" ry="94" fill="#e4ceb7"/>
+<path d="M627 172Q615 81 701 88Q786 84 773 182L729 125L681 150Z" fill="#656758"/>
+<path d="M669 210h12m37 0h12M684 247Q700 256 717 245" stroke="#64604f" stroke-width="5" fill="none" stroke-linecap="round"/>
+<g fill="none" stroke="#225943" stroke-width="3"><rect x="180" y="95" width="175" height="200" rx="5"/></g>
+<rect x="180" y="61" width="195" height="30" rx="5" fill="#225943"/>
+<text x="192" y="81" fill="white" font-family="monospace" font-size="14">participant_01 · 0.92</text>
+<rect x="610" y="95" width="175" height="200" rx="5" fill="none" stroke="#9c733c" stroke-width="3" stroke-dasharray="8 5"/>
+<rect x="610" y="61" width="155" height="30" rx="5" fill="#9c733c"/>
+<text x="622" y="81" fill="white" font-family="monospace" font-size="14">unknown · 0.38</text>
+<rect x="30" y="384" width="225" height="28" rx="14" fill="#fafbf6"/>
+<text x="44" y="403" fill="#354b40" font-family="monospace" font-size="13">ILLUSTRATION / NOT INFERENCE</text>
+</svg>

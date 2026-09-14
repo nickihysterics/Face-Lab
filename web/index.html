@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="description" content="Face Lab — учебная лаборатория детекции и распознавания лиц. Синтетический пример, локальный инференс и понятные результаты.">
+  <title>Face Lab — учебная лаборатория</title>
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">К рабочей области</a>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Face Lab — главная"><img src="/static/logo.svg" width="42" height="42" alt=""><span>Face<span class="brand-light">Lab</span><small>COMPUTER VISION WORKSHOP</small></span></a>
+      <nav aria-label="Основная навигация"><a href="#how-it-works">Как это работает</a><a href="/docs">API ↗</a><span class="edition">УЧЕБНЫЙ ПРОЕКТ · 2025</span></nav>
+    </header>
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow"><span></span> ОТ ДАННЫХ К МОДЕЛИ</p><h1>Увидеть лицо.<br><span>Понять предсказание.</span></h1></div>
+        <div class="intro-copy"><p>Лаборатория компьютерного зрения. <br>Исследуйте детекцию, классы и пороги <br>на одном изображении.</p><div class="status-pill" id="modelStatus" role="status">Проверяем состояние моделей…</div></div>
+      </section>
+      <section class="workspace" id="workspace" aria-label="Рабочая область">
+        <aside class="controls">
+          <div class="section-heading"><span class="step">01</span><h2>Исходные данные</h2></div>
+          <button class="demo-button" id="demoBtn" type="button"><span class="demo-icon">↗</span><span><strong>Открыть пример</strong><small>Без установки весов</small></span><span>→</span></button>
+          <p class="hint">Синтетическая иллюстрация с заданной разметкой. Нейросеть не запускается.</p>
+          <div class="divider"><span>ИЛИ СВОЁ ИЗОБРАЖЕНИЕ</span></div>
+          <form id="predictForm">
+            <div class="upload" id="dropZone"><span class="upload-symbol" aria-hidden="true">＋</span><label for="imageFile">Выберите изображение</label><p>или перетащите его сюда</p><input type="file" id="imageFile" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG, WebP · до 8 МБ · 16 Мп</small></div>
+            <p class="filename" id="fileName">Файл ещё не выбран</p>
+            <div class="section-heading settings"><span class="step">02</span><h2>Настройки</h2></div>
+            <div class="range-label"><label for="conf">Порог детекции</label><output id="confValue" for="conf">0.25</output></div>
+            <input id="conf" name="conf" type="range" min="0.05" max="0.95" step="0.05" value="0.25">
+            <p class="hint">Выше порог — строже отбор рамок.</p>
+            <div class="range-label"><label for="unknown">Порог unknown</label><output id="unknownValue" for="unknown">0.50</output></div>
+            <input id="unknown" name="unknown_threshold" type="range" min="0.05" max="0.95" step="0.05" value="0.5">
+            <p class="hint">Ниже этой оценки класс не назначается.</p>
+            <button class="primary" id="runBtn" type="submit">Обработать изображение <span>→</span></button>
+            <p class="hint" id="requirements">Для своего изображения нужны детектор и обученный классификатор.</p>
+          </form>
+          <div class="error" id="errorBox" role="alert" hidden></div>
+        </aside>
+        <section class="output-panel" aria-label="Результаты">
+          <div class="output-heading"><div class="section-heading"><span class="step">03</span><h2>Результат обработки</h2></div><span class="result-badge" id="resultMode">ОЖИДАНИЕ</span></div>
+          <div class="canvas" id="canvas" aria-busy="false">
+            <div id="placeholder" class="placeholder"><div class="scan-icon" aria-hidden="true"><span>+</span></div><h3>Начните с примера</h3><p>Посмотрите, как рамки и оценки<br>превращаются в результат.</p><span class="canvas-caption">ЛОКАЛЬНО · ОДНО ИЗОБРАЖЕНИЕ ЗА ЗАПРОС</span></div>
+            <img id="resultImage" alt="Изображение с рамками и метками" hidden>
+          </div>
+          <div class="result-status"><span class="dot"></span><p id="statusText" role="status" aria-live="polite">Рабочая область готова</p><span id="faceCount">— ОБЪЕКТОВ</span></div>
+          <div class="demo-notice" id="demoNotice" hidden>Демонстрационная разметка задана заранее. Числа показывают формат результата и не оценивают качество модели.</div>
+          <div id="results" class="result-list" aria-label="Найденные объекты"></div>
+          <div class="result-footer"><span>Оценка класса не равна вероятности правильного распознавания.</span><button id="downloadBtn" class="text-button" type="button" hidden>Скачать JSON ↓</button></div>
+        </section>
+      </section>
+      <section class="explanation" id="how-it-works">
+        <div><span class="eyebrow">КАК УСТРОЕН ЭКСПЕРИМЕНТ</span><h2>Три шага внутри одного запроса</h2></div>
+        <div class="pipeline"><article><span>01 / DETECT</span><h3>Найти лицо</h3><p>Детектор YOLO выделяет рамки. Порог отсеивает слабые детекции.</p></article><article><span>02 / EMBED</span><h3>Получить признаки</h3><p>ResNet-50 преобразует кроп лица в вектор из 512 признаков.</p></article><article><span>03 / CLASSIFY</span><h3>Сопоставить класс</h3><p>Классификатор, обученный с ArcFace, выбирает метку или unknown.</p></article></div>
+      </section>
+    </main>
+    <footer><span>FACE LAB <span class="footer-muted">/ Учебная лаборатория</span></span><span>Локальная обработка · Без хранения загрузок приложением</span><a href="https://github.com/nickihysterics/Face-Lab">Исходный код ↗</a></footer>
+  </div>
+</body>
+</html>

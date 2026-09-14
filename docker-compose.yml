@@ -1,0 +1,29 @@
+services:
+  web:
+    build:
+      context: .
+      target: ${FACE_LAB_TARGET:-web}
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      MODELS_DIR: /app/models
+      FACE_LAB_DEVICE: cpu
+    volumes:
+      - ./models:/app/models:ro
+    init: true
+
+  train:
+    build:
+      context: .
+      target: ml
+    profiles: [train]
+    command: python scripts/train_model.py --auto-prepare --epochs 5 --batch-size 16 --base /data/faces
+    environment:
+      DATASET_DIR: /data
+      MODELS_DIR: /app/models
+      REPORTS_DIR: /app/reports
+    volumes:
+      - ./models:/app/models
+      - ./reports:/app/reports
+      - ./datasets:/data:ro
+    init: true

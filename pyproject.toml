@@ -1,0 +1,16 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["ml: requires optional PyTorch dependencies"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+include = ["app/**/*.py", "ml/**/*.py", "scripts/**/*.py", "tests/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*.py" = ["E402"]
+"tests/test_ml.py" = ["E402"]

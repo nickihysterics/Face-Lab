@@ -1,0 +1,12 @@
+.git
+.backups
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+datasets
+models
+reports
+dist
+.env
+.DS_Store
